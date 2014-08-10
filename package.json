@@ -1,0 +1,21 @@
+{
+  "name": "glup.ti.module",
+  "version": "0.1.0",
+  "description": "glup for titanium module",
+  "main": "gulpfile.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^0.1.1",
+    "gulp-run": "^1.6.3",
+    "gulp-shell": "^0.2.9",
+    "mkdirp": "^0.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
