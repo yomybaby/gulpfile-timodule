@@ -8,15 +8,18 @@ titanium native module 만들 때 간편하게 build하고 example을 테스트 
 
 ## 시작하기
 ### 1. 모듈 프로젝트 생성
+
 - Ti 3.3.x 부터는 titanium cli를 통해 module project를 생성할 수 있습니다. 또한 3.3.x부터는 폴더 구조가 바뀌었습니다. 바뀐 프로젝트 구조로 인해 multi platform을 지원하는 모듈을 만들 수 있습니다. (예를 들어 ios및 android용 native pg결제 모듈을 Titanium Native Module 로 만들 때 이름으로 같은 api로 만들기가 가능해집니다. example, documentation, assets 등을 공유합니다.)
 
-      ## iOS Command
-      ti create -p ios -t module -d <WORKSPACE_DIR> -n <MODULE_NAME> -u <MODULE_URL> --id <MODULE_ID>
-      ## Android Command
-      ti create -p android -t module -d <WORKSPACE_DIR> -n <MODULE_NAME> -u <MODULE_URL> --id <MODULE_ID>
+        ## iOS Command
+        ti create -p ios -t module -d <WORKSPACE_DIR> -n <MODULE_NAME> -u <MODULE_URL> --id <MODULE_ID>
+        ## Android Command
+        ti create -p android -t module -d <WORKSPACE_DIR> -n <MODULE_NAME> -u <MODULE_URL> --id <MODULE_ID>
 
 - android 및  iphone용으로 둘다 만들 경우 `-p ios,android`로 하면 같이 생성된다.
-      ti create -p ios,android -t module -d ~/Documents/Sample_Workspace/ -n testProjectName -u http:// --id com.example.test
+
+        ti create -p ios,android -t module -d ~/Documents/Sample_Workspace/ -n testProjectName -u http:// --id com.example.test
+      
 - 참고 링크
   - [CLI for android module](http://docs.appcelerator.com/titanium/latest/#!/guide/Android_Module_Development_Guide-section-29004945_AndroidModuleDevelopmentGuide-CreatingfromtheTerminal)
   - [CLI for iphone module](http://docs.appcelerator.com/titanium/latest/#!/guide/iOS_Module_Development_Guide-section-29004946_iOSModuleDevelopmentGuide-Step2%3ACreatingyourFirstModule)
