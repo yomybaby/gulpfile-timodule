@@ -19,7 +19,7 @@ titanium native module 만들 때 간편하게 build하고 example을 테스트 
 - android 및  iphone용으로 둘다 만들 경우 `-p ios,android`로 하면 같이 생성된다.
 
         ti create -p ios,android -t module -d ~/Documents/Sample_Workspace/ -n testProjectName -u http:// --id com.example.test
-      
+
 - 참고 링크
   - [CLI for android module](http://docs.appcelerator.com/titanium/latest/#!/guide/Android_Module_Development_Guide-section-29004945_AndroidModuleDevelopmentGuide-CreatingfromtheTerminal)
   - [CLI for iphone module](http://docs.appcelerator.com/titanium/latest/#!/guide/iOS_Module_Development_Guide-section-29004946_iOSModuleDevelopmentGuide-Step2%3ACreatingyourFirstModule)
@@ -29,10 +29,10 @@ titanium native module 만들 때 간편하게 build하고 example을 테스트 
 1. project root에서 `[sudo] npm install` 실행
 
 ### 4. 준비 끝! gulp task 사용!
-- `gulp ios` :
-- `gulp ios:build` :
-- `gulp android` :
-- `gulp android:build` :
+- `gulp ios` : ios native module build 후 example/app.js 를 이용해서 프로젝트 생성 및 실행
+- `gulp ios:build` : ios native module build(zip파일만 생성)
+- `gulp android` : android native module build 후 example/app.js 를 이용해서 프로젝트 생성 및 실행
+- `gulp android:build` : android native module build (dist/*.zip파일만 생성)
 
 ## 기타 설정 관련
 gulpfile.js 상단에 있는 config를 환경에 맞게 수정하세요. `IOS_EXAMPLE_BUILD_COMMAND`와 `ANDROID_EXAMPLE_BUILD_COMMAND`는 `example/app.js` 프로젝트 실행 명령어 입니다.
