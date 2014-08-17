@@ -1,22 +1,17 @@
 {
-  "name": "glup.ti.module",
+  "name": "gulpfile-ti-module",
   "version": "0.1.0",
-  "description": "glup for titanium module",
-  "main": "gulpfile.js",
-  "directories": {
-    "example": "example"
-  },
+  "private": true,
+  "description": "gulpfile for titanium module",
   "dependencies": {},
   "devDependencies": {
     "del": "^0.1.1",
-    "gulp-run": "^1.6.3",
+    "gulp-json-editor": "^2.0.2",
     "gulp-shell": "^0.2.9",
-    "mkdirp": "^0.5.0",
+    "gulp-util": "^3.0.0",
+    "through2": "^0.6.1",
     "uuid-js": "^0.7.4"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+  "author": "Jong Eun Lee @yomybaby",
+  "license": "Apache 2"
 }
