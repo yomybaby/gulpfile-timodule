@@ -6,6 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "del": "^0.1.1",
+    "gulp": "^3.8.7",
     "gulp-json-editor": "^2.0.2",
     "gulp-shell": "^0.2.9",
     "gulp-util": "^3.0.0",
