@@ -1,10 +1,3 @@
-var config = {
-	IOS_EXAMPLE_BUILD_COMMAND : 'ti build -p ios',
-	ANDROID_EXAMPLE_BUILD_COMMAND : 'ti build -p android',
-	TITANIUM_SDK_DIR : '~/Library/Application\\ Support/Titanium/mobilesdk/osx/3.3.0.GA',
-	EXAMPLE_PROJECT_NAME : 'example_test_build'
-}
-
 // gulp..
 var gulp = require('gulp');
 var through = require('through2')
@@ -21,6 +14,19 @@ var util = require('util');
 var del = require('del');
 var path = require("path");
 var UUID = require('uuid-js');
+var sh = require('execSync');
+
+// config : auto select titanium_sdk_dir
+var os_map = { 'win32': 'win32', 'darwin': 'osx', 'linux': 'linux' };
+var os_name = os_map[os.platform()];
+var sdkLocation = sh.exec('ti config sdk.defaultInstallLocation').stdout.replace('\n','').replace(' ','\\ ');
+var selectedSdk = sh.exec('ti config sdk.selected').stdout.replace('\n','');
+var config = {
+	IOS_EXAMPLE_BUILD_COMMAND : 'ti build -p ios',
+	ANDROID_EXAMPLE_BUILD_COMMAND : 'ti build -p android',
+	TITANIUM_SDK_DIR : path.join(sdkLocation,'mobilesdk',os_name,selectedSdk),
+	EXAMPLE_PROJECT_NAME : 'example_test_build'
+}
 
 // globals
 var example_project_path = path.join(__dirname,config.EXAMPLE_PROJECT_NAME);
