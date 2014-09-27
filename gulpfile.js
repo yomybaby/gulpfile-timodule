@@ -90,7 +90,12 @@ function createTemplateProject(manifest,cb){
 			var target_tiapp = fs.readFileSync(path.join(example_project_path,"tiapp.xml"),'utf8');
 			var write_tiapp = target_tiapp
 				.replace('</guid>', UUID.create().toString()+'</guid>')
-				.replace('</modules>', moduleTag + '</modules>\n');
+				.replace('</modules>', moduleTag + '</modules>\n')
+				.replace('</ti:app>',	'\t<deployment-targets>\n'+
+							'\t\t<target device="android">true</target>\n'+
+							'\t\t<target device="ipad">true</target>\n'+
+							'\t\t<target device="iphone">true</target>\n'+
+						'\t</deployment-targets>\n</ti:app>');
 			
 			fs.writeFileSync(path.join(example_project_path,"tiapp.xml"), write_tiapp);
 			
