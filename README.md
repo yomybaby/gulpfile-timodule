@@ -40,6 +40,6 @@ gulpfile.js 상단에 있는 config를 환경에 맞게 수정하세요. `IOS_EX
     var config = {
       IOS_EXAMPLE_BUILD_COMMAND : 'ti build -p ios',
       ANDROID_EXAMPLE_BUILD_COMMAND : 'ti build -p android',
-      TITANIUM_SDK_DIR : '~/Library/Application\\ Support/Titanium/mobilesdk/osx/3.3.0.GA',
+      TITANIUM_SDK_DIR : path.join(sdkLocation,'mobilesdk',os_name,selectedSdk),
       EXAMPLE_PROJECT_NAME : 'example_test_build'
     }
