@@ -9,6 +9,7 @@ var jeditor = require("gulp-json-editor");
 var fs = require("fs");
 var exec = require('child_process').exec;
 var util = require('util');
+var os = require('os');
 
 // npm
 var del = require('del');
