@@ -1,6 +1,11 @@
 # gulpfile.js for Titanium Module Project
 titanium native module 만들 때 간편하게 build하고 example을 테스트 해볼 수 있도록 해주는 gulpfile 입니다. example 테스트시 titanium build 명령을 지정 할 수 있습니다.
 
+## 왜 이걸 만들었나요?
+
+1. titanium에서 기본적으로 제공하는 모듈 제작과 관련된 명령어가 ios(build.py)와 android(ant 이용) 다르기 때문에 명령어를 기억하기 어려워서요. 간단히 하고 싶었습니다.
+2. titanium에서 기본적으로 제공하는 실행 명령어를 통해 `example/app.js`가 포함된 테스트 프로젝트가 `/var/tmp` 폴더에 만들어져서 찾기도 어렵고 나중에 집니다. 실제 모듈 개발하면서 tishadow를 이용한다거나 xcode로 디버깅할때 example 프로젝트를 간단히 열기위해 모듈 프로젝트 안의 하위 폴더(`example_test_build`)로 만들고 싶었습니다.
+
 ## 시작하기 전에
 - [gulp.js](http://gulpjs.com) 가 설치되어 있어야 합니다.
       sudo npm install -g gulp
