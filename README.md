@@ -5,7 +5,8 @@ This is a gulfile for Titanium module build and run. You can make a build comman
 
 1. default titanium module commands depneds on platform. `build.py` for ios and `ant` for android. I want to make it more simple.
 2. `titanium.py run` is command for test with `example/app.js`. But it make a titanium project file on `/var/tmp`. It's hard to find and it will delete automatically. This gulpfile make a titanium project using `example/app.js` under project folder(default : `example_test_build`)
-3.
+3. `titanium.py run` command have some bugs!!!! You can't run this command on Ti 3.3.x and above.
+
 ## Before Start
 - Install [gulp.js](http://gulpjs.com)
       sudo npm install -g gulp
