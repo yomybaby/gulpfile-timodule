@@ -1,5 +1,5 @@
 # gulpfile.js for Titanium Module Project
-This is a gulfile for Titanium module build and run. You can make a build command as you want. For example, run with tishadow `--appify` flag.
+This is a gulpfile for Titanium module build and run. You can make a build command as you want. For example, run with [tishadow](http://github.com/dbankier/TiShadow) `--appify` flag or run via [tn](http://github.com/fokkezb/tn).
 
 ## Why made this file?
 
