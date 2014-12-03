@@ -63,7 +63,7 @@ function timanifest2json(options) {
 
 gulp.task('clean', function(cb) {
 	var delList = [];
-	delList.push(example_project_path);
+	//delList.push(example_project_path);
     del(delList, cb);
 });
 
@@ -86,40 +86,35 @@ gulp.task('ios:build',['init'], shell.task([ 'python build.py'],{cwd:'iphone'}))
 gulp.task('android:build', ['init'], shell.task(['ant dist'],{cwd:'android'}));
 
 function createTemplateProject(manifest,cb){
-	var child = exec(
-		[ config.TITANIUM_SDK_DIR+'/project.py',config.EXAMPLE_PROJECT_NAME, manifest.moduleid, __dirname, manifest.platform ].join(' ')
-		, function (error) {
-	    	// process.stdin.unpipe(child.stdin)
-	    	// process.stdin.pause()
-	    	
-	    	var moduleTag = util.format('\t<module platform="%s">%s</module>\n\t',manifest.platform, manifest.moduleid);
+	var mkdirp = require('mkdirp');
+	mkdirp.sync(example_project_path+'/Resources');
 
-			var target_tiapp = fs.readFileSync(path.join(example_project_path,"tiapp.xml"),'utf8');
-			var write_tiapp = target_tiapp
-				.replace('</guid>', UUID.create().toString()+'</guid>')
-				.replace('</modules>', moduleTag + '</modules>\n')
-				.replace('</ti:app>',	'\t<deployment-targets>\n'+
-							'\t\t<target device="android">true</target>\n'+
-							'\t\t<target device="ipad">true</target>\n'+
-							'\t\t<target device="iphone">true</target>\n'+
-						'\t</deployment-targets>\n</ti:app>');
-			
-			fs.writeFileSync(path.join(example_project_path,"tiapp.xml"), write_tiapp);
-			
-			var distPath = path.join(__dirname,manifest.platform);
-			if(manifest.platform==='android'){
-				distPath = path.join(distPath,'dist');
-			}
+	// tiappStr base on TiSDK 3.4.1.GA default tiapp.xml
+	var tiapp;
+	var tiappStr = '<?xml version="1.0" encoding="UTF-8"?> <ti:app xmlns:ti="http://ti.appcelerator.org"> <id></id> <name></name> <version>1.0</version> <publisher>not specified</publisher> <url>http://yoururl.com</url> <description></description> <copyright>not specified</copyright> <icon>appicon.png</icon> <fullscreen>false</fullscreen> <navbar-hidden>false</navbar-hidden> <analytics>true</analytics> <guid></guid> <property name="ti.ui.defaultunit" type="string">dp</property> <ios> <plist> <dict> <key>UISupportedInterfaceOrientations~iphone</key> <array> <string>UIInterfaceOrientationPortrait</string> </array> <key>UISupportedInterfaceOrientations~ipad</key> <array> <string>UIInterfaceOrientationPortrait</string> <string>UIInterfaceOrientationPortraitUpsideDown</string> <string>UIInterfaceOrientationLandscapeLeft</string> <string>UIInterfaceOrientationLandscapeRight</string> </array> <key>UIRequiresPersistentWiFi</key> <false/> <key>UIPrerenderedIcon</key> <false/> <key>UIStatusBarHidden</key> <false/> <key>UIStatusBarStyle</key> <string>UIStatusBarStyleDefault</string> </dict> </plist> </ios> <android xmlns:android="http://schemas.android.com/apk/res/android"> </android> <mobileweb> <precache> </precache> <splash> <enabled>true</enabled> <inline-css-images>true</inline-css-images> </splash> <theme>default</theme> </mobileweb> <modules> </modules> <deployment-targets> <target device="android">true</target> <target device="blackberry">true</target> <target device="ipad">true</target> <target device="iphone">true</target> <target device="mobileweb">true</target> </deployment-targets> <sdk-version>3.4.1.GA</sdk-version> </ti:app>';
+	if(fs.existsSync(path.join(example_project_path,"tiapp.xml"))){
+		tiapp = require('tiapp.xml').load(path.join(example_project_path,"tiapp.xml"));
+	}else{
+		tiapp = require('tiapp.xml').parse(tiappStr);
+		tiapp.guid = UUID.create().toString();
+		tiapp.id = manifest.moduleid;
+		tiapp.name = manifest.moduleid;
+	}
+	tiapp.setModule(manifest.moduleid, manifest.version, manifest.platform);
+	// tiapp.sdkVersion = 'myVersion';
+	tiapp.write(path.join(example_project_path,"tiapp.xml"));
+	
+	var distPath = path.join(__dirname,manifest.platform);
+	if(manifest.platform==='android'){
+		distPath = path.join(distPath,'dist');
+	}
 
-			var copyCommand = util.format('cp %s/%s-%s-%s.zip %s', distPath, manifest.moduleid.toLowerCase(), manifest.platform, manifest.version, example_project_path);
-			log(copyCommand);
-			exec(copyCommand,function(){
-				exec('cp -rf example/* '+example_project_path+'/Resources',function(){
-					cb();
-				});
-			});
-		}
-	);
+	var copyCommand = util.format('cp %s/%s-%s-%s.zip %s', distPath, manifest.moduleid.toLowerCase(), manifest.platform, manifest.version, example_project_path);
+	exec(copyCommand,function(){
+		exec('cp -rf example/* '+example_project_path+'/Resources',function(){
+			cb();
+		});
+	});
 }
 
 gulp.task('ready:iosProject',['init','ios:build'],function(cb){
@@ -129,10 +124,10 @@ gulp.task('ready:androidProject',['init','android:build'],function(cb){
 	createTemplateProject(manifests.android,cb);
 });
 
-gulp.task('ios',['ready:iosProject'],shell.task([
+gulp.task('ios',['init','ready:iosProject'],shell.task([
 	config.IOS_EXAMPLE_BUILD_COMMAND
 ],{cwd: example_project_path}));
 
-gulp.task('android',['ready:androidProject'],shell.task([
+gulp.task('android',['init','ready:androidProject'],shell.task([
 	config.ANDROID_EXAMPLE_BUILD_COMMAND
 ],{cwd: example_project_path}));
