@@ -8,6 +8,7 @@ var jeditor = require("gulp-json-editor");
 // node
 var fs = require("fs");
 var exec = require('child_process').exec;
+var execSync = require('child_process').execSync;
 var util = require('util');
 var os = require('os');
 
@@ -15,13 +16,12 @@ var os = require('os');
 var del = require('del');
 var path = require("path");
 var UUID = require('uuid-js');
-var sh = require('execSync');
 
 // config : auto select titanium_sdk_dir
 var os_map = { 'win32': 'win32', 'darwin': 'osx', 'linux': 'linux' };
 var os_name = os_map[os.platform()];
-var sdkLocation = sh.exec('ti config sdk.defaultInstallLocation').stdout.replace('\n','').replace(' ','\\ ');
-var selectedSdk = sh.exec('ti config sdk.selected').stdout.replace('\n','');
+var sdkLocation = execSync('ti config sdk.defaultInstallLocation').toString().replace('\n','').replace(' ','\\ ');
+var selectedSdk = execSync('ti config sdk.selected').toString().replace('\n','');
 var config = {
 	IOS_EXAMPLE_BUILD_COMMAND : 'ti build -p ios',
 	ANDROID_EXAMPLE_BUILD_COMMAND : 'ti build -p android',
